@@ -49,7 +49,10 @@ pub fn check_observations(net : Network, names : Array[String],
 pub fn add_observations(net : Network, names : Array[String],
                         spans : Array[Interval]) -> Network raise AllenError {
   let observed = observe(names,spans)
+  // Validate even singleton observations, which have no pairwise source rows.
+  for name in names { let _ = net.index(name) }
   let mut out = net
   for constraint in observed.sources { out = out.constrain(constraint) }
   out
 }
+

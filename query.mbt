@@ -26,7 +26,7 @@ pub fn possible_relations(alg : Algebra, net : Network, left : String, right : S
   let mut nodes = 0
   let mut operations = 0
   for atom in domain.items() {
-    let trial = net.restrict(left,right,RelSet::single(atom),label="query")
+    let trial = query_domain(net,left,right,RelSet::single(atom))
     let report = solve(alg,trial,options)
     nodes = nodes+report.nodes
     operations = operations+report.operations
@@ -60,10 +60,24 @@ pub fn entails(alg : Algebra, net : Network, left : String, right : String,
     Unknown(limit) => return EntailmentUnknown(limit)
     Satisfiable(_) => ()
   }
-  let counter = net.restrict(left,right,RelSet::all().difference(claim),label="counterexample")
+  let counter = query_domain(net,left,right,RelSet::all().difference(claim))
   match solve(alg,counter,options).outcome {
     Unsatisfiable => Proven
     Unknown(limit) => EntailmentUnknown(limit)
     Satisfiable(w) => Refuted(w)
   }
+}
+
+///|
+// A hypothetical query narrows a matrix without appending fictional user evidence.
+// This also keeps queries valid when the original evidence is at its size limit.
+fn query_domain(net : Network, left : String, right : String, allowed : RelSet) -> Network raise AllenError {
+  let i = net.index(left)
+  let j = net.index(right)
+  let cells = net.cells.copy()
+  let n = net.size()
+  let narrowed = cells[i*n+j].intersect(allowed)
+  cells[i*n+j] = narrowed
+  cells[j*n+i] = narrowed.converse()
+  with_cells(net,cells)
 }
