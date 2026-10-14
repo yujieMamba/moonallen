@@ -13,15 +13,21 @@ pub extend Interval with @debug.Debug::{to_repr}
 
 ///|
 pub fn Interval::new(start : Int, end : Int) -> Interval raise AllenError {
-  if start >= end { raise InvalidInterval(start, end) }
-  { start, end }
+  if start >= end {
+    raise InvalidInterval(start, end)
+  }
+  { start, end, }
 }
 
 ///|
-pub fn Interval::start(self : Interval) -> Int { self.start }
+pub fn Interval::start(self : Interval) -> Int {
+  self.start
+}
 
 ///|
-pub fn Interval::end(self : Interval) -> Int { self.end }
+pub fn Interval::end(self : Interval) -> Int {
+  self.end
+}
 
 ///|
 pub fn Interval::relate(self : Interval, other : Interval) -> Relation {
@@ -30,17 +36,41 @@ pub fn Interval::relate(self : Interval, other : Interval) -> Relation {
 
 ///|
 fn classify(a : Int, b : Int, c : Int, d : Int) -> Relation {
-  if b < c { return Before }
-  if b == c { return Meets }
-  if a > d { return After }
-  if a == d { return MetBy }
+  if b < c {
+    return Before
+  }
+  if b == c {
+    return Meets
+  }
+  if a > d {
+    return After
+  }
+  if a == d {
+    return MetBy
+  }
   if a == c {
-    if b < d { Starts } else if b == d { Equal } else { StartedBy }
+    if b < d {
+      Starts
+    } else if b == d {
+      Equal
+    } else {
+      StartedBy
+    }
   } else if b == d {
-    if a < c { FinishedBy } else { Finishes }
+    if a < c {
+      FinishedBy
+    } else {
+      Finishes
+    }
   } else if a < c {
-    if b < d { Overlaps } else { Contains }
+    if b < d {
+      Overlaps
+    } else {
+      Contains
+    }
+  } else if b < d {
+    During
   } else {
-    if b < d { During } else { OverlappedBy }
+    OverlappedBy
   }
 }

@@ -1,2 +1,5 @@
 pkgtype(kind: "executable")
-import { "yujieMamba/moonallen" @allen }
+
+import {
+  "yujieMamba/moonallen" @allen,
+}

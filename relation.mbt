@@ -37,8 +37,21 @@ pub fn Relation::index(self : Relation) -> Int {
 
 ///|
 pub fn relations() -> Array[Relation] {
-  [Before, Meets, Overlaps, Starts, During, Finishes, Equal,
-   After, MetBy, OverlappedBy, StartedBy, Contains, FinishedBy]
+  [
+    Before,
+    Meets,
+    Overlaps,
+    Starts,
+    During,
+    Finishes,
+    Equal,
+    After,
+    MetBy,
+    OverlappedBy,
+    StartedBy,
+    Contains,
+    FinishedBy,
+  ]
 }
 
 ///|
@@ -82,7 +95,9 @@ pub fn Relation::converse(self : Relation) -> Relation {
 ///|
 pub fn parse_relation(text : String) -> Relation raise AllenError {
   for r in relations() {
-    if r.token() == text { return r }
+    if r.token() == text {
+      return r
+    }
   }
   raise InvalidRelation(text)
 }

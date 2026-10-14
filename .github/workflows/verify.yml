@@ -1,0 +1,47 @@
+name: verify
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  targets:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [wasm-gc, wasm, js, native]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install official MoonBit toolchain
+        run: |
+          curl --fail --silent --show-error --location https://cli.moonbitlang.com/install/unix.sh -o /tmp/install-moonbit.sh
+          bash /tmp/install-moonbit.sh
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+      - name: Record environment
+        run: |
+          moon version --all
+          cc --version
+          node --version
+      - name: Interfaces and format
+        run: |
+          moon info
+          moon fmt --check
+          git diff --exit-code
+      - name: Check
+        run: moon check --target ${{ matrix.target }} --deny-warn
+      - name: Test
+        run: moon test --target ${{ matrix.target }} --deny-warn
+      - name: Build
+        run: moon build --target ${{ matrix.target }} --deny-warn
+      - name: Real downstream workflows
+        run: |
+          moon run examples/workflow --target ${{ matrix.target }} --deny-warn
+          moon run examples/annotation --target ${{ matrix.target }} --deny-warn
+          moon run examples/media --target ${{ matrix.target }} --deny-warn
+      - name: Production and history audit
+        run: python3 scripts/audit.py
+

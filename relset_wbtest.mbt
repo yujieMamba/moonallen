@@ -21,6 +21,16 @@ test "all masks preserve size converse and rendering" {
 
 ///|
 test "malformed mask and empty alternatives rejected" {
-  try RelSet::from_mask(8192) catch { InvalidMask(_) => (); _ => fail("wrong error") } noraise { _ => fail("bad mask") }
-  try parse_relset("b||m") catch { InvalidRelation(_) => (); _ => fail("wrong error") } noraise { _ => fail("empty token") }
+  try RelSet::from_mask(8192) catch {
+    InvalidMask(_) => ()
+    _ => fail("wrong error")
+  } noraise {
+    _ => fail("bad mask")
+  }
+  try parse_relset("b||m") catch {
+    InvalidRelation(_) => ()
+    _ => fail("wrong error")
+  } noraise {
+    _ => fail("empty token")
+  }
 }

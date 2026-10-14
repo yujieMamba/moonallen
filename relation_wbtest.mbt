@@ -14,5 +14,7 @@ test "invalid relation does not silently become universal" {
   try parse_relation("before") catch {
     InvalidRelation("before") => ()
     _ => fail("wrong error")
-  } noraise { _ => fail("expected invalid relation") }
+  } noraise {
+    _ => fail("expected invalid relation")
+  }
 }
