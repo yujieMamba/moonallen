@@ -86,3 +86,9 @@ pub fn parse_relation(text : String) -> Relation raise AllenError {
   }
   raise InvalidRelation(text)
 }
+
+///|
+pub extend Relation with Eq::{equal, not_equal}
+
+///|
+pub extend Relation with @debug.Debug::{to_repr}

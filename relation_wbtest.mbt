@@ -11,6 +11,8 @@ test "relation tokens and converse are bijective" {
 
 ///|
 test "invalid relation does not silently become universal" {
-  let invalid = try? parse_relation("before")
-  assert_true(invalid is Err(InvalidRelation("before")))
+  try parse_relation("before") catch {
+    InvalidRelation("before") => ()
+    _ => fail("wrong error")
+  } noraise { _ => fail("expected invalid relation") }
 }

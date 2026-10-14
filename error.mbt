@@ -10,4 +10,4 @@ pub(all) suberror AllenError {
   InvalidLimit(String)
   InvalidFormat(String)
   TooLarge(Int)
-} derive(Debug, Eq)
+}
