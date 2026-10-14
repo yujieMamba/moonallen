@@ -17,7 +17,7 @@ pub(all) enum Relation {
 } derive(Eq, Debug)
 
 ///|
-pub fn Relation::index(self : Relation) -> Int {
+pub fn Relation::index(self : Relation) -> Int32 {
   match self {
     Before => 0
     Meets => 1

@@ -105,7 +105,7 @@ rel a b b|m input-ready
 
 ## 验证
 
-本地开发工具链：moon 0.1.20260920 / moonc v0.10.14（2026-09-18）。
+发布验证工具链：moon 0.1.20261012 / moonc v0.10.15+943464bfa（2026-10-12）。使用 `Int32` 和当前 JSON 转换语法；不承诺旧编译器兼容。
 
 ```sh
 moon info && moon fmt

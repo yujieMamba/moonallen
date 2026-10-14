@@ -2,8 +2,8 @@
 pub(all) struct UnsatCore {
   constraints : Array[Constraint]
   minimal : Bool
-  checks : Int
-  unresolved_checks : Int
+  checks : Int32
+  unresolved_checks : Int32
 }
 
 ///|
@@ -20,7 +20,7 @@ pub fn explain_unsat(
   alg : Algebra,
   net : Network,
   options : SearchOptions,
-  max_checks? : Int = 256,
+  max_checks~ : Int32 = 256,
 ) -> CoreOutcome raise AllenError {
   if max_checks < 1 || max_checks > 4097 {
     raise InvalidLimit("core checks must be 1..4097")

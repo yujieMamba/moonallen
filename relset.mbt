@@ -1,7 +1,7 @@
 ///|
 /// A validated set of alternatives, not simultaneous relations.
 pub struct RelSet {
-  priv bits : Int
+  priv bits : Int32
 } derive(Eq, Debug)
 
 ///|
@@ -26,7 +26,7 @@ pub fn RelSet::single(r : Relation) -> RelSet {
 }
 
 ///|
-pub fn RelSet::from_mask(mask : Int) -> RelSet raise AllenError {
+pub fn RelSet::from_mask(mask : Int32) -> RelSet raise AllenError {
   if mask < 0 || mask > 8191 {
     raise InvalidMask(mask)
   }
@@ -43,7 +43,7 @@ pub fn RelSet::of(items : Array[Relation]) -> RelSet {
 }
 
 ///|
-pub fn RelSet::mask(self : RelSet) -> Int {
+pub fn RelSet::mask(self : RelSet) -> Int32 {
   self.bits
 }
 
@@ -78,7 +78,7 @@ pub fn RelSet::is_empty(self : RelSet) -> Bool {
 }
 
 ///|
-pub fn RelSet::size(self : RelSet) -> Int {
+pub fn RelSet::size(self : RelSet) -> Int32 {
   let mut n = 0
   for r in relations() {
     if self.has(r) {

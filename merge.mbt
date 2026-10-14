@@ -64,14 +64,14 @@ pub fn compare_domains(
 
 ///|
 pub(all) struct NetworkStats {
-  intervals : Int
-  pairs : Int
-  constrained_pairs : Int
-  atomic_pairs : Int
-  ambiguous_pairs : Int
-  empty_domains : Int
-  alternatives : Int
-  source_constraints : Int
+  intervals : Int32
+  pairs : Int32
+  constrained_pairs : Int32
+  atomic_pairs : Int32
+  ambiguous_pairs : Int32
+  empty_domains : Int32
+  alternatives : Int32
+  source_constraints : Int32
 }
 
 ///|

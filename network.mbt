@@ -62,7 +62,7 @@ pub fn Network::new(names : Array[String]) -> Network raise AllenError {
 }
 
 ///|
-pub fn Network::size(self : Network) -> Int {
+pub fn Network::size(self : Network) -> Int32 {
   self.names.length()
 }
 
@@ -77,7 +77,7 @@ pub fn Network::constraints(self : Network) -> Array[Constraint] {
 }
 
 ///|
-pub fn Network::index(self : Network, name : String) -> Int raise AllenError {
+pub fn Network::index(self : Network, name : String) -> Int32 raise AllenError {
   for i = 0; i < self.size(); i = i + 1 {
     if self.names[i] == name {
       return i
@@ -87,7 +87,11 @@ pub fn Network::index(self : Network, name : String) -> Int raise AllenError {
 }
 
 ///|
-pub fn Network::at(self : Network, i : Int, j : Int) -> RelSet raise AllenError {
+pub fn Network::at(
+  self : Network,
+  i : Int32,
+  j : Int32,
+) -> RelSet raise AllenError {
   if i < 0 || i >= self.size() {
     raise InvalidIndex(i)
   }
@@ -139,7 +143,7 @@ pub fn Network::restrict(
   left : String,
   right : String,
   allowed : RelSet,
-  label? : String = "",
+  label~ : String = "",
 ) -> Network raise AllenError {
   self.constrain({ left, right, allowed, label, })
 }

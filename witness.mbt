@@ -47,7 +47,7 @@ pub fn Witness::satisfies(self : Witness, net : Network) -> Bool {
 }
 
 ///|
-fn representative(parents : Array[Int], node : Int) -> Int {
+fn representative(parents : Array[Int32], node : Int32) -> Int32 {
   let mut r = node
   while parents[r] != r {
     r = parents[r]
@@ -58,12 +58,12 @@ fn representative(parents : Array[Int], node : Int) -> Int {
 ///|
 fn endpoint_requirements(
   r : Relation,
-  a : Int,
-  b : Int,
-  c : Int,
-  d : Int,
-  equalities : Array[(Int, Int)],
-  orders : Array[(Int, Int)],
+  a : Int32,
+  b : Int32,
+  c : Int32,
+  d : Int32,
+  equalities : Array[(Int32, Int32)],
+  orders : Array[(Int32, Int32)],
 ) -> Unit {
   if r.index() > 6 {
     endpoint_requirements(r.converse(), c, d, a, b, equalities, orders)
@@ -105,8 +105,8 @@ pub fn realize_atomic(net : Network) -> Witness? raise AllenError {
     raise InvalidFormat("realization requires atomic domains")
   }
   let n = net.size()
-  let equalities : Array[(Int, Int)] = []
-  let orders : Array[(Int, Int)] = []
+  let equalities : Array[(Int32, Int32)] = []
+  let orders : Array[(Int32, Int32)] = []
   for i = 0; i < n; i = i + 1 {
     orders.push((2 * i, 2 * i + 1))
     for j = i + 1; j < n; j = j + 1 {

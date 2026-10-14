@@ -12,3 +12,5 @@
   stable text/DOT/diagnostic reports, and three runnable downstream workflows.
 - Exhaustive mask and small-network oracle tests, malformed/resource regressions,
   four-target clean-runner CI and Apache-2.0 provenance documentation.
+
+- Release validation uses MoonBit 2026-10-12: explicit Int32 interfaces and non-deprecated JSON conversions.

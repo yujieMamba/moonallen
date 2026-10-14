@@ -10,8 +10,8 @@ pub(all) struct PossibilityReport {
   impossible : RelSet
   unknown : RelSet
   models : Array[RelationModel]
-  nodes : Int
-  operations : Int
+  nodes : Int32
+  operations : Int32
 }
 
 ///|

@@ -8,7 +8,7 @@ pub struct Algebra {
 ///|
 pub fn Algebra::new() -> Algebra {
   let table = Array::make(169, RelSet::empty())
-  let spans : Array[(Int, Int)] = []
+  let spans : Array[(Int32, Int32)] = []
   for a = 0; a < 6; a = a + 1 {
     for b = a + 1; b < 6; b = b + 1 {
       spans.push((a, b))

@@ -20,21 +20,21 @@ pub(all) enum SolveOutcome {
 ///|
 pub(all) struct SolveReport {
   outcome : SolveOutcome
-  nodes : Int
-  operations : Int
-  maximum_depth : Int
+  nodes : Int32
+  operations : Int32
+  maximum_depth : Int32
 }
 
 ///|
 pub struct SearchOptions {
-  priv nodes : Int
-  priv operations : Int
+  priv nodes : Int32
+  priv operations : Int32
 }
 
 ///|
 pub fn SearchOptions::new(
-  max_nodes? : Int = 10000,
-  max_operations? : Int = 1000000,
+  max_nodes~ : Int32 = 10000,
+  max_operations~ : Int32 = 1000000,
 ) -> SearchOptions raise AllenError {
   if max_nodes < 0 || max_nodes > 1000000 {
     raise InvalidLimit("search nodes must be 0..1000000")
@@ -47,9 +47,9 @@ pub fn SearchOptions::new(
 
 ///|
 priv struct SearchState {
-  mut nodes : Int
-  mut operations : Int
-  mut depth : Int
+  mut nodes : Int32
+  mut operations : Int32
+  mut depth : Int32
 }
 
 ///|
@@ -58,7 +58,7 @@ fn search_visit(
   net : Network,
   options : SearchOptions,
   state : SearchState,
-  depth : Int,
+  depth : Int32,
 ) -> SolveOutcome raise AllenError {
   if state.nodes >= options.nodes {
     return Unknown(NodeBudget)

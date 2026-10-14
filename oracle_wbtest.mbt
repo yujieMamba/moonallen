@@ -1,7 +1,7 @@
 ///|
 /// Independent endpoint predicates: no library classifier, composition, closure,
 /// or realization is used by this finite reference model.
-fn reference_relation(a : (Int, Int), b : (Int, Int)) -> Int {
+fn reference_relation(a : (Int32, Int32), b : (Int32, Int32)) -> Int32 {
   let (x, y) = a
   let (u, v) = b
   if y < u {
@@ -34,7 +34,7 @@ fn reference_relation(a : (Int, Int), b : (Int, Int)) -> Int {
 }
 
 ///|
-fn reference_spans() -> Array[(Int, Int)] {
+fn reference_spans() -> Array[(Int32, Int32)] {
   let out = []
   for start = 0; start < 6; start = start + 1 {
     for end = start + 1; end < 6; end = end + 1 {
@@ -91,7 +91,7 @@ test "independent endpoint oracle checks every atomic three-interval network" {
 ///|
 test "256 disjunctive networks agree with exhaustive endpoint assignments" {
   let spans = reference_spans()
-  let triples : Array[(Int, Int, Int)] = []
+  let triples : Array[(Int32, Int32, Int32)] = []
   for a in spans {
     for b in spans {
       for c in spans {

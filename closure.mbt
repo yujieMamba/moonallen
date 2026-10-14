@@ -13,9 +13,9 @@ pub extend ClosureStatus with @debug.Debug::{to_repr}
 
 ///|
 pub(all) struct Reduction {
-  left : Int
-  right : Int
-  via : Int
+  left : Int32
+  right : Int32
+  via : Int32
   before : RelSet
   after : RelSet
 }
@@ -31,23 +31,23 @@ pub(all) struct Conflict {
 pub(all) struct ClosureReport {
   status : ClosureStatus
   network : Network
-  operations : Int
+  operations : Int32
   reductions : Array[Reduction]
-  reduction_count : Int
+  reduction_count : Int32
   trace_complete : Bool
   conflict : Conflict?
 }
 
 ///|
 pub struct PropagationOptions {
-  priv operations : Int
-  priv trace : Int
+  priv operations : Int32
+  priv trace : Int32
 }
 
 ///|
 pub fn PropagationOptions::new(
-  max_operations? : Int = 1000000,
-  max_trace? : Int = 10000,
+  max_operations~ : Int32 = 1000000,
+  max_trace~ : Int32 = 10000,
 ) -> PropagationOptions raise AllenError {
   if max_operations < 0 || max_operations > 10000000 {
     raise InvalidLimit("propagation operations must be 0..10000000")

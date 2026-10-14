@@ -3,7 +3,7 @@
 /// Original source labels are intentionally not claimed for inferred domains.
 pub fn Network::domain_constraints(
   self : Network,
-  label? : String = "domain",
+  label~ : String = "domain",
 ) -> Array[Constraint] {
   let out : Array[Constraint] = []
   let n = self.size()

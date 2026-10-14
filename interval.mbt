@@ -1,8 +1,8 @@
 ///|
 /// Proper intervals require start < end. Coordinates have no calendar semantics.
 pub struct Interval {
-  priv start : Int
-  priv end : Int
+  priv start : Int32
+  priv end : Int32
 } derive(Eq, Debug)
 
 ///|
@@ -12,7 +12,7 @@ pub extend Interval with Eq::{equal, not_equal}
 pub extend Interval with @debug.Debug::{to_repr}
 
 ///|
-pub fn Interval::new(start : Int, end : Int) -> Interval raise AllenError {
+pub fn Interval::new(start : Int32, end : Int32) -> Interval raise AllenError {
   if start >= end {
     raise InvalidInterval(start, end)
   }
@@ -20,12 +20,12 @@ pub fn Interval::new(start : Int, end : Int) -> Interval raise AllenError {
 }
 
 ///|
-pub fn Interval::start(self : Interval) -> Int {
+pub fn Interval::start(self : Interval) -> Int32 {
   self.start
 }
 
 ///|
-pub fn Interval::end(self : Interval) -> Int {
+pub fn Interval::end(self : Interval) -> Int32 {
   self.end
 }
 
@@ -35,7 +35,7 @@ pub fn Interval::relate(self : Interval, other : Interval) -> Relation {
 }
 
 ///|
-fn classify(a : Int, b : Int, c : Int, d : Int) -> Relation {
+fn classify(a : Int32, b : Int32, c : Int32, d : Int32) -> Relation {
   if b < c {
     return Before
   }
