@@ -14,7 +14,7 @@ pub fn compare_domains(Network, Network) -> Array[DomainChange] raise AllenError
 
 pub fn entails(Algebra, Network, String, String, RelSet, SearchOptions) -> Entailment raise AllenError
 
-pub fn explain_unsat(Algebra, Network, SearchOptions, max_checks? : Int) -> CoreOutcome raise AllenError
+pub fn explain_unsat(Algebra, Network, SearchOptions, max_checks? : Int32) -> CoreOutcome raise AllenError
 
 pub fn is_path_consistent(Algebra, Network) -> Bool
 
@@ -49,15 +49,15 @@ pub fn verify_trace(Algebra, Network, ClosureReport) -> Bool
 // Errors
 pub(all) suberror AllenError {
   InvalidRelation(String)
-  InvalidMask(Int)
-  InvalidInterval(Int, Int)
+  InvalidMask(Int32)
+  InvalidInterval(Int32, Int32)
   InvalidName(String)
   DuplicateName(String)
   UnknownName(String)
-  InvalidIndex(Int)
+  InvalidIndex(Int32)
   InvalidLimit(String)
   InvalidFormat(String)
-  TooLarge(Int)
+  TooLarge(Int32)
 }
 
 // Types and methods
@@ -72,9 +72,9 @@ pub fn Algebra::row(Self, Relation) -> Array[RelSet]
 pub(all) struct ClosureReport {
   status : ClosureStatus
   network : Network
-  operations : Int
+  operations : Int32
   reductions : Array[Reduction]
-  reduction_count : Int
+  reduction_count : Int32
   trace_complete : Bool
   conflict : Conflict?
 }
@@ -131,26 +131,26 @@ pub(all) enum Entailment {
 pub struct Interval {
   // private fields
 } derive(Eq, @debug.Debug)
-pub fn Interval::end(Self) -> Int
+pub fn Interval::end(Self) -> Int32
 pub fn Interval::equal(Self, Self) -> Bool
-pub fn Interval::new(Int, Int) -> Self raise AllenError
+pub fn Interval::new(Int32, Int32) -> Self raise AllenError
 pub fn Interval::not_equal(Self, Self) -> Bool
 pub fn Interval::relate(Self, Self) -> Relation
-pub fn Interval::start(Self) -> Int
+pub fn Interval::start(Self) -> Int32
 pub fn Interval::to_repr(Self) -> @debug.Repr
 
 pub struct Network {
   // private fields
 }
 pub fn Network::accepts(Self, Array[Interval]) -> Bool
-pub fn Network::at(Self, Int, Int) -> RelSet raise AllenError
+pub fn Network::at(Self, Int32, Int32) -> RelSet raise AllenError
 pub fn Network::components(Self) -> Array[Array[String]]
 pub fn Network::constrain(Self, Constraint) -> Self raise AllenError
 pub fn Network::constraints(Self) -> Array[Constraint]
 pub fn Network::domain_constraints(Self, label? : String) -> Array[Constraint]
 pub fn Network::from_constraints(Array[String], Array[Constraint]) -> Self raise AllenError
 pub fn Network::get(Self, String, String) -> RelSet raise AllenError
-pub fn Network::index(Self, String) -> Int raise AllenError
+pub fn Network::index(Self, String) -> Int32 raise AllenError
 pub fn Network::induced(Self, Array[String]) -> Self raise AllenError
 pub fn Network::is_atomic(Self) -> Bool
 pub fn Network::is_refinement_of(Self, Self) -> Bool
@@ -160,7 +160,7 @@ pub fn Network::rename(Self, Array[String]) -> Self raise AllenError
 pub fn Network::render(Self) -> String
 pub fn Network::restrict(Self, String, String, RelSet, label? : String) -> Self raise AllenError
 pub fn Network::same_domains(Self, Self) -> Bool
-pub fn Network::size(Self) -> Int
+pub fn Network::size(Self) -> Int32
 pub fn Network::sources_json(Self) -> Json
 pub fn Network::stats(Self) -> NetworkStats
 pub fn Network::to_dot(Self) -> String
@@ -168,14 +168,14 @@ pub fn Network::to_dsl(Self) -> String
 pub fn Network::to_json(Self) -> Json
 
 pub(all) struct NetworkStats {
-  intervals : Int
-  pairs : Int
-  constrained_pairs : Int
-  atomic_pairs : Int
-  ambiguous_pairs : Int
-  empty_domains : Int
-  alternatives : Int
-  source_constraints : Int
+  intervals : Int32
+  pairs : Int32
+  constrained_pairs : Int32
+  atomic_pairs : Int32
+  ambiguous_pairs : Int32
+  empty_domains : Int32
+  alternatives : Int32
+  source_constraints : Int32
 }
 pub fn NetworkStats::to_json(Self) -> Json
 
@@ -191,19 +191,19 @@ pub(all) struct PossibilityReport {
   impossible : RelSet
   unknown : RelSet
   models : Array[RelationModel]
-  nodes : Int
-  operations : Int
+  nodes : Int32
+  operations : Int32
 }
 
 pub struct PropagationOptions {
   // private fields
 }
-pub fn PropagationOptions::new(max_operations? : Int, max_trace? : Int) -> Self raise AllenError
+pub fn PropagationOptions::new(max_operations? : Int32, max_trace? : Int32) -> Self raise AllenError
 
 pub(all) struct Reduction {
-  left : Int
-  right : Int
-  via : Int
+  left : Int32
+  right : Int32
+  via : Int32
   before : RelSet
   after : RelSet
 }
@@ -216,17 +216,17 @@ pub fn RelSet::converse(Self) -> Self
 pub fn RelSet::difference(Self, Self) -> Self
 pub fn RelSet::empty() -> Self
 pub fn RelSet::equal(Self, Self) -> Bool
-pub fn RelSet::from_mask(Int) -> Self raise AllenError
+pub fn RelSet::from_mask(Int32) -> Self raise AllenError
 pub fn RelSet::has(Self, Relation) -> Bool
 pub fn RelSet::intersect(Self, Self) -> Self
 pub fn RelSet::is_empty(Self) -> Bool
 pub fn RelSet::items(Self) -> Array[Relation]
-pub fn RelSet::mask(Self) -> Int
+pub fn RelSet::mask(Self) -> Int32
 pub fn RelSet::not_equal(Self, Self) -> Bool
 pub fn RelSet::of(Array[Relation]) -> Self
 pub fn RelSet::render(Self) -> String
 pub fn RelSet::single(Relation) -> Self
-pub fn RelSet::size(Self) -> Int
+pub fn RelSet::size(Self) -> Int32
 pub fn RelSet::subset_of(Self, Self) -> Bool
 pub fn RelSet::to_repr(Self) -> @debug.Repr
 pub fn RelSet::union(Self, Self) -> Self
@@ -248,7 +248,7 @@ pub(all) enum Relation {
 } derive(Eq, @debug.Debug)
 pub fn Relation::converse(Self) -> Self
 pub fn Relation::equal(Self, Self) -> Bool
-pub fn Relation::index(Self) -> Int
+pub fn Relation::index(Self) -> Int32
 pub fn Relation::not_equal(Self, Self) -> Bool
 pub fn Relation::to_repr(Self) -> @debug.Repr
 pub fn Relation::token(Self) -> String
@@ -270,7 +270,7 @@ pub fn SearchLimit::token(Self) -> String
 pub struct SearchOptions {
   // private fields
 }
-pub fn SearchOptions::new(max_nodes? : Int, max_operations? : Int) -> Self raise AllenError
+pub fn SearchOptions::new(max_nodes? : Int32, max_operations? : Int32) -> Self raise AllenError
 
 pub(all) enum SolveOutcome {
   Satisfiable(Witness)
@@ -280,17 +280,17 @@ pub(all) enum SolveOutcome {
 
 pub(all) struct SolveReport {
   outcome : SolveOutcome
-  nodes : Int
-  operations : Int
-  maximum_depth : Int
+  nodes : Int32
+  operations : Int32
+  maximum_depth : Int32
 }
 pub fn SolveReport::to_json(Self) -> Json
 
 pub(all) struct UnsatCore {
   constraints : Array[Constraint]
   minimal : Bool
-  checks : Int
-  unresolved_checks : Int
+  checks : Int32
+  unresolved_checks : Int32
 }
 
 pub struct Witness {

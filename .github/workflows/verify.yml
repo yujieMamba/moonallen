@@ -24,6 +24,7 @@ jobs:
       - name: Record environment
         run: |
           moon version --all
+          python3 -c 'import re, subprocess; v = subprocess.check_output(["moonc", "-v"], text=True); m = re.search(r"v?(\d+)\.(\d+)\.(\d+)", v); assert m and tuple(map(int, m.groups())) >= (0, 10, 16), v'
           cc --version
           node --version
       - name: Interfaces and format

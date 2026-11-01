@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — 2026-11-01
+
+- Regenerate public interfaces with moonc 0.10.18 (canonical Int32 names).
+- Require moonc >= 0.10.16 in CI and document the verified toolchain.
+- Preserve the existing reasoning API and runtime behavior.
+
 ## 0.1.0 — 2026-10-14
 
 - Proper intervals, all 13 Allen relations, validated bitsets and exact composition.

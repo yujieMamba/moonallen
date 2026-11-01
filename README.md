@@ -1,13 +1,13 @@
 # MoonAllen
 
-MoonBit 原生的**定性时间区间约束推理库**，模块 `yujieMamba/moonallen@0.1.0`。
+MoonBit 原生的**定性时间区间约束推理库**，模块 `yujieMamba/moonallen@0.1.1`。
 
 当系统只知道“阶段 A 在 B 之前或与 B 相接”“标注 C 与 D 重叠”而没有精确时间戳时，MoonAllen 将这些关系作为可组合的约束，进行传播、有限搜索、见证校验和冲突解释。它不是日历、预约排程器或通用 SMT 求解器。
 
 ## 安装与最小集成
 
 ```sh
-moon add yujieMamba/moonallen@0.1.0
+moon add yujieMamba/moonallen@0.1.1
 ```
 
 在消费包的 `moon.pkg` 中导入：
@@ -105,7 +105,7 @@ rel a b b|m input-ready
 
 ## 验证
 
-发布验证工具链：moon 0.1.20261012 / moonc v0.10.15+943464bfa（2026-10-12）。使用 `Int32` 和当前 JSON 转换语法；不承诺旧编译器兼容。
+发布验证工具链：moon 0.1.20261028 / moonc v0.10.18+6c83a7f62（2026-10-28），满足验收要求 moonc ≥ 0.10.16。使用 `Int32` 和当前 JSON 转换语法；不承诺旧编译器兼容。
 
 ```sh
 moon info && moon fmt
